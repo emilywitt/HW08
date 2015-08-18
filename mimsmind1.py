@@ -17,6 +17,32 @@ def random_with_N_digits(a):
     range_end = (10**a)-1
     return random.randint(range_start, range_end)
 
+def bulls_cows(next, r, digits):
+    bulls = 0
+    cows = 0
+    random1 = r
+    digits = digits
+    # random1 = 456 # test random variable
+    # next = '555' # test user chosen string
+    next = next
+    temp = str(random1) # need to create a temporary variable so that it doesn't check
+            # same integer again and say 1 bull, 1 cow for the same integer if 
+            # that integer repeats
+    for i in range(digits):
+        if next[i] == str(random1)[i]:
+            bulls += 1
+            temp = next.replace(next[i], 'a') # set temporary variable here if integer was already found to be a bull
+        else:
+            pass
+    for i in range(digits):
+        # if next[i] in str(r) and next[i] != str(r)[i]: 
+        if next[i] in temp and next[i] != temp[i]:# compare to new temp string
+        #instead of original user inputted string
+            cows += 1
+        else:
+            pass
+    print '  %i Bull(s), %i Cow(s)' % (bulls, cows)
+
 def mimsmind1():
     if not len(argv) > 1: 
         command_line = 3 # if nothing is passed from the command line, len(argv)
@@ -42,23 +68,15 @@ def mimsmind1():
         except: 
             print "Try again. Enter a real number:"
         n += 1
-        for i in range(digits):
-            bulls = 0
-            cows = 0
-            if next[i] == str(r)[i]:
-                bulls += 1
-            elif next[i] in str(r): 
-                cows += 1
-            print '  %i Bull(s), %i Cow(s)' % (bulls, cows)
+        bulls_cows(next, r, digits)
     print "Sorry, you have run out of chances"
-
-
 
 
 # Main
 def main():
     # Start the game
     mimsmind1()
+    # print bulls_cows()
 
 if __name__ == '__main__':
     main()
